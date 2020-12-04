@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DeliveryPlatform.Core.DataModels
+namespace DeliveryPlatform.Core.Models
 {
     public class AccessWindowDto
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeliveryPlatform.Core.DataModels;
+using DeliveryPlatform.Core.Models;
 using Shared.Interfaces;
 
 namespace DeliveryPlatform.Core.Interfaces

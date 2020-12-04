@@ -1,4 +1,4 @@
-﻿namespace DeliveryPlatform.Core.DataModels
+﻿namespace DeliveryPlatform.Core.Models
 {
     public enum DeliveryStateDto
     {

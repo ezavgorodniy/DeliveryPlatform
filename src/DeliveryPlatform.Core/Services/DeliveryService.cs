@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DeliveryPlatform.Core.DataModels;
 using DeliveryPlatform.Core.Interfaces;
+using DeliveryPlatform.Core.Models;
 using DeliveryPlatform.DataLayer.Interfaces;
 using Shared.Interfaces;
 

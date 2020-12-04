@@ -1,4 +1,4 @@
-﻿using DeliveryPlatform.Core.DataModels;
+﻿using DeliveryPlatform.Core.Models;
 using DeliveryPlatform.DataLayer.DataModels;
 using Shared.Interfaces;
 

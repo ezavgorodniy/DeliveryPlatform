@@ -1,6 +1,6 @@
 ﻿using System;
-using DeliveryPlatform.Core.DataModels;
 using DeliveryPlatform.Core.Interfaces;
+using DeliveryPlatform.Core.Models;
 using DeliveryPlatform.DataLayer.DataModels;
 
 namespace DeliveryPlatform.Core.Mappers
