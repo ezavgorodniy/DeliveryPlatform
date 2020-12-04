@@ -8,5 +8,7 @@ As they logically different and serving different purposes I'd like to separate 
 ![Architecture](images/Architecture.png)
 
 Identity will be standard Id v4 ASP.NET core project.
+
 Delivery.Api will be standard ASP.NET Core WebAPI project.
+
 Authentication will be based on JWT token.
