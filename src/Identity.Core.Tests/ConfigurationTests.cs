@@ -27,7 +27,7 @@ namespace Identity.Core.Tests
         }
 
         [Fact]
-        public void ExpectUsersRepoToBeResolvable()
+        public void ExpectAuthenticationServiceToBeResolvable()
         {
             var authenticationService = _serviceProvider.GetRequiredService<IAuthenticationService>();
 
