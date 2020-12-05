@@ -7,6 +7,7 @@ using Identity.DataLayer.DataModels;
 using Identity.DataLayer.Interfaces;
 using Microsoft.Extensions.Options;
 using Moq;
+using Shared.Models;
 using Xunit;
 
 namespace Identity.Core.Tests.Services

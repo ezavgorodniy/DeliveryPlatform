@@ -1,7 +1,14 @@
-﻿namespace Shared.Interfaces
+﻿using Identity.Contract;
+
+namespace Shared.Interfaces
 {
     public interface IExecutionContext
     {
-        // TODO: add user role
+        Role UserRole { get; }
+
+        string UserId { get; }
+
+        void Initialize(Role userRole, string userId);
+
     }
 }

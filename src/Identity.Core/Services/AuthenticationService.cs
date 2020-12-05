@@ -10,6 +10,7 @@ using Identity.DataLayer.DataModels;
 using Identity.DataLayer.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Models;
 
 namespace Identity.Core.Services
 {

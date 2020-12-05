@@ -1,4 +1,4 @@
-﻿namespace Identity.Core.Models
+﻿namespace Shared.Models
 {
     public class AuthSettings
     {
