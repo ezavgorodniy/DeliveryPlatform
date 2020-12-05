@@ -5,7 +5,6 @@ using DeliveryPlatform.Core.Interfaces;
 using DeliveryPlatform.Core.Models;
 using Identity.Contract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Shared.Interfaces;
 
 namespace DeliveryPlatform.Controllers
@@ -14,15 +13,12 @@ namespace DeliveryPlatform.Controllers
     [Route("[controller]")]
     public class DeliveriesController : ControllerBase
     {
-        private readonly ILogger<DeliveriesController> _logger;
         private readonly IDeliveryService _deliveryService;
         private readonly IExecutionContext _executionContext;
 
-        public DeliveriesController(ILogger<DeliveriesController> logger,
-            IDeliveryService deliveryService,
+        public DeliveriesController(IDeliveryService deliveryService,
             IExecutionContext executionContext)
         {
-            _logger = logger;
             _deliveryService = deliveryService;
             _executionContext = executionContext;
         }
