@@ -8,11 +8,11 @@ namespace Shared
     {
         private readonly object _padlock = new object();
 
-        private bool _isInitialized = false;
-
         public Role UserRole { get; private set; }
 
         public string UserId { get; private set; }
+        
+        public bool IsInitialized { get; private set; }
 
         public void Initialize(Role userRole, string userId)
         {
@@ -22,12 +22,12 @@ namespace Shared
                 {
                     throw new ArgumentNullException(nameof(userId));
                 }
-                if (_isInitialized)
+                if (IsInitialized)
                 {
                     throw new Exception("Cannot initialize twice");
                 }
 
-                _isInitialized = true;
+                IsInitialized = true;
                 UserRole = userRole;
                 UserId = userId;
             }

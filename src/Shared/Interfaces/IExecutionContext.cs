@@ -8,6 +8,8 @@ namespace Shared.Interfaces
 
         string UserId { get; }
 
+        bool IsInitialized { get; }
+
         void Initialize(Role userRole, string userId);
 
     }

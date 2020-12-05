@@ -19,6 +19,7 @@ namespace Shared.Tests
         public void InitializeWithNullOrEmptyUserIdExpectArgumentNullException(string userId)
         {
             Assert.Throws<ArgumentNullException>(() => _executionContext.Initialize(Role.Partner, userId));
+            Assert.False(_executionContext.IsInitialized);
         }
 
         [Fact]
@@ -31,16 +32,19 @@ namespace Shared.Tests
 
             Assert.Equal(expectedUserId, _executionContext.UserId);
             Assert.Equal(expectedRole, _executionContext.UserRole);
+            Assert.True(_executionContext.IsInitialized);
         }
 
         [Fact]
         public void InitializeTwiceExpectException()
         {
             _executionContext.Initialize(Role.Partner, "userId");
+            Assert.True(_executionContext.IsInitialized);
             Assert.Throws<Exception>(() =>
             {
                 _executionContext.Initialize(Role.Partner, "userId");
             });
+            Assert.True(_executionContext.IsInitialized);
         }
     }
 }
