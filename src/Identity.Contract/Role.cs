@@ -1,8 +1,11 @@
-﻿namespace Identity.Contract
+﻿using System;
+
+namespace Identity.Contract
 {
+    [Flags]
     public enum Role
     {
-        User,
-        Partner
+        User = 1,
+        Partner = 2
     }
 }
