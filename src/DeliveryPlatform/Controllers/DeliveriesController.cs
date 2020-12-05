@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DeliveryPlatform.Attributes;
 using DeliveryPlatform.Core.Interfaces;
@@ -20,7 +18,6 @@ namespace DeliveryPlatform.Controllers
         private readonly IDeliveryService _deliveryService;
         private readonly IExecutionContext _executionContext;
 
-
         public DeliveriesController(ILogger<DeliveriesController> logger,
             IDeliveryService deliveryService,
             IExecutionContext executionContext)
@@ -30,15 +27,15 @@ namespace DeliveryPlatform.Controllers
             _executionContext = executionContext;
         }
 
-        [HttpGet]
         [Authorize(Role.User | Role.Partner)]
+        [HttpGet]
         public Task<IEnumerable<DeliveryDto>> Get()
         {
             return _deliveryService.GetAll(_executionContext);
         }
 
-        [HttpGet("{id}")]
         [Authorize(Role.User | Role.Partner)]
+        [HttpGet("{id}")]
         public Task<DeliveryDto> Get(string id)
         {
             return _deliveryService.Get(_executionContext, id);
@@ -51,8 +48,8 @@ namespace DeliveryPlatform.Controllers
             return _deliveryService.Delete(_executionContext, id);
         }
 
-        [HttpPut("{id}")]
         [Authorize(Role.User | Role.Partner)]
+        [HttpPut("{id}")]
         public Task Update(string id, [FromBody] DeliveryDto deliveryDto)
         {
             // deliveryDto.Id = id;
