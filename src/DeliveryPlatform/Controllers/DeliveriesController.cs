@@ -21,12 +21,12 @@ namespace DeliveryPlatform.Controllers
 
 
         public DeliveriesController(ILogger<DeliveriesController> logger,
-            IDeliveryService deliveryService)
+            IDeliveryService deliveryService,
+            IExecutionContext executionContext)
         {
             _logger = logger;
             _deliveryService = deliveryService;
-            // TODO: find a way to inject ExecutionContext
-            _executionContext = new ExecutionContext();
+            _executionContext = executionContext;
         }
 
         [HttpGet]

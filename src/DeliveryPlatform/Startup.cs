@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared;
+using Shared.Interfaces;
+using Shared.Middlewares;
+using Shared.Models;
 
 namespace DeliveryPlatform
 {
@@ -24,6 +28,14 @@ namespace DeliveryPlatform
                 c.JsonSerializerOptions.IgnoreNullValues = true;
                 c.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+            services.Configure<AuthSettings>(Configuration.GetSection("AppSettings"));
+
+            // This will allow to inject execution context via DI
+            services.AddScoped<ExecutionContext>();
+            services.AddScoped<IExecutionContext>(x => x.GetRequiredService<ExecutionContext>());
+
+            Shared.Configuration.ConfigureServices(services);
             Core.Configuration.ConfigureServices(services);
             DataLayer.Configuration.ConfigureServices(services);
         }
@@ -41,6 +53,9 @@ namespace DeliveryPlatform
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
