@@ -69,6 +69,6 @@ assumptions are made clear either through the design or additional documentation
 - [Architecture](docs/Architecture.md)
 - [Assumptions](docs/Assumptions.md)
 - [Developers get started](docs/StartLocalMachine.md)
-- [Issues to resolve](docs/Issues.md)
+- [Issues to resolve](https://github.com/ezavgorodniy/DeliveryPlatform/issues)
 - [Testing with Postman](docs/TestingWithPostman.md)
 
