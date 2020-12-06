@@ -24,6 +24,7 @@ namespace DeliveryPlatform.Core
             serviceCollection.AddTransient<IPermissionChecker, PermissionChecker>();
 
             serviceCollection.AddTransient<IDeliveryService, DeliveryService>();
+            serviceCollection.AddTransient<IExpirationService, ExpirationService>();
         }
     }
 }

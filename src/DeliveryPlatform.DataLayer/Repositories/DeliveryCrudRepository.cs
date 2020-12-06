@@ -19,6 +19,8 @@ namespace DeliveryPlatform.DataLayer.Repositories
             }
 
             entity.Id = Guid.NewGuid().ToString();
+            entity.State = DeliveryState.Created;
+
             _deliveries.Add(entity);
             return Task.FromResult(entity);
         }
@@ -58,6 +60,19 @@ namespace DeliveryPlatform.DataLayer.Repositories
                 foundDelivery.State = entity.State;
             }
             return Task.FromResult(foundDelivery);
+        }
+
+        public Task MarkExpiredDeliveries()
+        {
+            foreach (var delivery in _deliveries.Where(del=> del.State == DeliveryState.Approved || del.State == DeliveryState.Created))
+            {
+                if (DateTime.Now > delivery.AccessWindow.EndTime)
+                {
+                    delivery.State = DeliveryState.Expired;
+                }
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

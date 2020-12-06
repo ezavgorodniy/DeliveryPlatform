@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using DeliveryPlatform.HostedService;
+using DeliveryPlatform.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,10 @@ namespace DeliveryPlatform
                 c.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
+            services.AddHostedService<DeliveryExpirationBackgroundService>();
+
             services.Configure<AuthSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<DeliveryExpirationSettings>(Configuration.GetSection("AppSettings"));
 
             // This will allow to inject execution context via DI
             services.AddScoped<ExecutionContext>();

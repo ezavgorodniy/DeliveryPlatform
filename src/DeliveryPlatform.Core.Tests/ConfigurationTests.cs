@@ -34,5 +34,13 @@ namespace DeliveryPlatform.Core.Tests
 
             Assert.IsType<DeliveryService>(deliveryService);
         }
+
+        [Fact]
+        public void ExpectExpirationServiceToBeResolvable()
+        {
+            var expirationService = _serviceProvider.GetRequiredService<IExpirationService>();
+
+            Assert.IsType<ExpirationService>(expirationService);
+        }
     }
 }

@@ -132,5 +132,39 @@ namespace DeliveryPlatform.DataLayer.Tests.Repositories
 
             Assert.Equal(newState, foundEntity.State);
         }
+
+        [Theory]
+        [InlineData(DeliveryState.Approved, DeliveryState.Expired)]
+        [InlineData(DeliveryState.Created, DeliveryState.Expired)]
+        [InlineData(DeliveryState.Expired, DeliveryState.Expired)]
+        [InlineData(DeliveryState.Completed, DeliveryState.Completed)]
+        [InlineData(DeliveryState.Cancelled, DeliveryState.Cancelled)]
+        public async Task MarkDeliveryAsCompletedTest(DeliveryState oldState, DeliveryState newState)
+        {
+            var expiredDelivery = new Delivery
+            {
+                AccessWindow = new AccessWindow
+                {
+                    EndTime = DateTime.Now.AddHours(-10)
+                },
+                State = oldState
+            };
+
+            var createdDelivery = await _repo.Create(expiredDelivery);
+
+            var newDelivery = new Delivery
+            {
+                State = oldState,
+                Id = createdDelivery.Id
+            };
+
+            await _repo.Update(newDelivery);
+
+            await _repo.MarkExpiredDeliveries();
+
+            var delivery = await _repo.Get(createdDelivery.Id);
+
+            Assert.Equal(newState, delivery.State);
+        }
     }
 }
