@@ -21,7 +21,7 @@ namespace DeliveryPlatform.Core.Helpers
                 from == DeliveryState.Cancelled ||
                 from == DeliveryState.Expired)
             {
-                // nobody can change something if it's finished
+                // nobody can change delivery if it's finished
                 return LogAndReturnValue(userRole, from, to, false);
             }
 
