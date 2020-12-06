@@ -162,6 +162,8 @@ namespace Shared.Tests.Helpers
                 Times.Never);
         }
 
+        // TODO: add tests for expired tokens
+
         private static string GenerateToken(string certificate, List<Claim> claims)
         {
             // generate token that is valid for an hour
