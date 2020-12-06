@@ -1,8 +1,12 @@
-﻿namespace DeliveryPlatform.Core.Models
+﻿using DeliveryPlatform.DataLayer.DataModels;
+
+namespace DeliveryPlatform.Core.Models
 {
     public class DeliveryDto
     {
-        public DeliveryStateDto State { get; set; }
+        public string Id { get; set; }
+        
+        public DeliveryState State { get; set; }
 
         public AccessWindowDto AccessWindow { get; set; }
 

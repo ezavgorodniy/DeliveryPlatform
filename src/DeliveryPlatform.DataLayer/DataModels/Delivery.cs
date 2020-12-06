@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DeliveryPlatform.DataLayer.DataModels
+﻿namespace DeliveryPlatform.DataLayer.DataModels
 {
     public class Delivery
     {
+        public string Id { get; set; }
+
         public DeliveryState State { get; set; }
 
         public AccessWindow AccessWindow { get; set; }

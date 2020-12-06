@@ -1,4 +1,5 @@
 ﻿using System;
+using DeliveryPlatform.Core.Helpers;
 using DeliveryPlatform.Core.Interfaces;
 using DeliveryPlatform.Core.Mappers;
 using DeliveryPlatform.Core.Services;
@@ -16,6 +17,12 @@ namespace DeliveryPlatform.Core
             }
 
             serviceCollection.AddTransient<IDeliveryMapper, DeliveryMapper>();
+            serviceCollection.AddTransient<IOrderMapper, OrderMapper>();
+            serviceCollection.AddTransient<IRecipientMapper, RecipientMapper>();
+            serviceCollection.AddTransient<IAccessWindowMapper, AccessWindowMapper>();
+
+            serviceCollection.AddTransient<IPermissionChecker, PermissionChecker>();
+
             serviceCollection.AddTransient<IDeliveryService, DeliveryService>();
         }
     }
