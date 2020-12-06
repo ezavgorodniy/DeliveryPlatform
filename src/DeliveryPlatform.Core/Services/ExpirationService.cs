@@ -7,9 +7,9 @@ namespace DeliveryPlatform.Core.Services
 {
     public class ExpirationService : IExpirationService
     {
-        private readonly IDeliveryCrudRepository _repo;
+        private readonly IDeliveryRepository _repo;
 
-        public ExpirationService(IDeliveryCrudRepository repo)
+        public ExpirationService(IDeliveryRepository repo)
         {
             _repo = repo;
         }

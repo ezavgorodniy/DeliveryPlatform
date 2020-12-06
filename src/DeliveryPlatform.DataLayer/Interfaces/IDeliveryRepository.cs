@@ -4,7 +4,7 @@ using Shared.Interfaces;
 
 namespace DeliveryPlatform.DataLayer.Interfaces
 {
-    public interface IDeliveryCrudRepository : ICrudRepository<Delivery>
+    public interface IDeliveryRepository : ICrudRepository<Delivery>
     {
         Task MarkExpiredDeliveries();
     }

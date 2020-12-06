@@ -8,11 +8,11 @@ namespace DeliveryPlatform.DataLayer.Tests.Repositories
 {
     public class  DeliveryCrudRepositoryTests
     {
-        private readonly DeliveryCrudRepository _repo;
+        private readonly DeliveryRepository _repo;
 
         public DeliveryCrudRepositoryTests()
         {
-            _repo = new DeliveryCrudRepository();
+            _repo = new DeliveryRepository();
         }
 
         [Fact]

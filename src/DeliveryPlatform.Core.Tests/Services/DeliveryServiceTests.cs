@@ -19,7 +19,7 @@ namespace DeliveryPlatform.Core.Tests.Services
     {
         private readonly DeliveryService _deliveryService;
 
-        private readonly Mock<IDeliveryCrudRepository> _mockRepo;
+        private readonly Mock<IDeliveryRepository> _mockRepo;
 
         private readonly Mock<IExecutionContext> _mockExecutionContext;
         private readonly Mock<IDeliveryMapper> _mockMapper;
@@ -30,7 +30,7 @@ namespace DeliveryPlatform.Core.Tests.Services
         {
             _mockPermissionChecker = new Mock<IPermissionChecker>();
             _mockMapper = new Mock<IDeliveryMapper>();
-            _mockRepo = new Mock<IDeliveryCrudRepository>();
+            _mockRepo = new Mock<IDeliveryRepository>();
 
             _mockExecutionContext = new Mock<IExecutionContext>();
             _mockExecutionContext.SetupGet(context => context.IsInitialized).Returns(true);

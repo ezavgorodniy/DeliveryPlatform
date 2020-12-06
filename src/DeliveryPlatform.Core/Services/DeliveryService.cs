@@ -13,11 +13,11 @@ namespace DeliveryPlatform.Core.Services
 {
     internal class DeliveryService : IDeliveryService
     {
-        private readonly IDeliveryCrudRepository _deliveryRepo;
+        private readonly IDeliveryRepository _deliveryRepo;
         private readonly IDeliveryMapper _deliveryMapper;
         private readonly IPermissionChecker _permissionChecker;
 
-        public DeliveryService(IDeliveryCrudRepository deliveryRepo,
+        public DeliveryService(IDeliveryRepository deliveryRepo,
             IDeliveryMapper deliveryMapper,
             IPermissionChecker permissionChecker)
         {

@@ -9,11 +9,11 @@ namespace DeliveryPlatform.Core.Tests.Services
     public class ExpirationServiceTests
     {
         private readonly ExpirationService _expirationService;
-        private readonly Mock<IDeliveryCrudRepository> _mockDeliveryRepository;
+        private readonly Mock<IDeliveryRepository> _mockDeliveryRepository;
 
         public ExpirationServiceTests()
         {
-            _mockDeliveryRepository = new Mock<IDeliveryCrudRepository>();
+            _mockDeliveryRepository = new Mock<IDeliveryRepository>();
             _expirationService = new ExpirationService(_mockDeliveryRepository.Object);
         }
 

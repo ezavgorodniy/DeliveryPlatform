@@ -14,7 +14,7 @@ namespace DeliveryPlatform.DataLayer
                 throw new ArgumentNullException(nameof(serviceCollection));
             }
 
-            serviceCollection.AddSingleton<IDeliveryCrudRepository, DeliveryCrudRepository>();
+            serviceCollection.AddSingleton<IDeliveryRepository, DeliveryRepository>();
         }
     }
 }

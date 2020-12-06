@@ -27,9 +27,9 @@ namespace DeliveryPlatform.DataLayer.Tests
         [Fact]
         public void ExpectDeliveryRepoToBeResolvable()
         {
-            var deliveryService = _serviceProvider.GetRequiredService<IDeliveryCrudRepository>();
+            var deliveryService = _serviceProvider.GetRequiredService<IDeliveryRepository>();
 
-            Assert.IsType<DeliveryCrudRepository>(deliveryService);
+            Assert.IsType<DeliveryRepository>(deliveryService);
         }
     }
 }

@@ -7,7 +7,7 @@ using DeliveryPlatform.DataLayer.Interfaces;
 
 namespace DeliveryPlatform.DataLayer.Repositories
 {
-    internal class DeliveryCrudRepository : IDeliveryCrudRepository
+    internal class DeliveryRepository : IDeliveryRepository
     {
         private readonly List<Delivery> _deliveries = new List<Delivery>();
 
