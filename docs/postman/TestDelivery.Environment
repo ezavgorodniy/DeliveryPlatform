@@ -1,0 +1,29 @@
+{
+	"id": "1ed274db-0684-46a4-8ee5-fe0ab3b6642f",
+	"name": "TestDelivery",
+	"values": [
+		{
+			"key": "identityHost",
+			"value": "https://localhost:32782",
+			"enabled": true
+		},
+		{
+			"key": "deliveryHost",
+			"value": "https://localhost:32784",
+			"enabled": true
+		},
+		{
+			"key": "jwt",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5YWMzZTQ3LWU1YTMtNDIxOS1hZTY1LWQwOGNlZjMwZTA1YSIsInJvbGUiOiJVc2VyIiwibmJmIjoxNjA3MjgyMTk4LCJleHAiOjE2MDcyODU3OTgsImlhdCI6MTYwNzI4MjE5OH0.H0DmauzA5buOvQf4H65JuMwm-er5q2txyCbQxEweQPY",
+			"enabled": true
+		},
+		{
+			"key": "lastCreatedDelivery",
+			"value": "b84f05ab-ead7-45d9-8081-be5b8a8c004a",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-12-06T19:22:50.377Z",
+	"_postman_exported_using": "Postman/7.36.0"
+}

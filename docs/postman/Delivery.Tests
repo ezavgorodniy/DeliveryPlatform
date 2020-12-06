@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "7ae58b27-db63-41f0-abd2-91f559290fdb",
+		"name": "Delivery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate Partner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f145946f-613b-4fb5-a457-a55d6bd93a6d",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"jwt\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"ThePartner\",\r\n    \"password\": \"ThePartner\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{identityHost}}/users/authenticate",
+					"host": [
+						"{{identityHost}}"
+					],
+					"path": [
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "163fbcad-6cff-453f-822b-8385dc561a9c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"jwt\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"TheUser\",\r\n    \"password\": \"TheUser\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{identityHost}}/users/authenticate",
+					"host": [
+						"{{identityHost}}"
+					],
+					"path": [
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{deliveryHost}}/deliveries",
+					"host": [
+						"{{deliveryHost}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{deliveryHost}}/deliveries/{{lastCreatedDelivery}}",
+					"host": [
+						"{{deliveryHost}}"
+					],
+					"path": [
+						"deliveries",
+						"{{lastCreatedDelivery}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{deliveryHost}}/deliveries/{{lastCreatedDelivery}}",
+					"host": [
+						"{{deliveryHost}}"
+					],
+					"path": [
+						"deliveries",
+						"{{lastCreatedDelivery}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05244599-3921-4acb-9cc2-64ab1d57eb8c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"lastCreatedDelivery\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"state\": \"created\",\r\n    \"accessWindow\": {\r\n        \"startTime\": \"2019-12-13T09:00:00Z\",\r\n        \"endTime\": \"2019-12-13T11:00:00Z\"\r\n    },\r\n    \"recipient\": {\r\n        \"name\": \"John Doe\",\r\n        \"address\": \"Merchant Road, London\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"phoneNumber\": \"+44123123123\"\r\n    },\r\n    \"order\": {\r\n        \"orderNumber\": \"12209667\",\r\n        \"sender\": \"Ikea\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{deliveryHost}}/deliveries",
+					"host": [
+						"{{deliveryHost}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"state\": \"approved\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{deliveryHost}}/deliveries/{{lastCreatedDelivery}}",
+					"host": [
+						"{{deliveryHost}}"
+					],
+					"path": [
+						"deliveries",
+						"{{lastCreatedDelivery}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

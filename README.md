@@ -69,4 +69,5 @@ assumptions are made clear either through the design or additional documentation
 - [Architecture](docs/Architecture.md)
 - [Assumptions](docs/Assumptions.md)
 - [Issues to resolve](docs/Issues.md)
+- [Testing with Postman](docs/TestingWithPostman.md)
 
