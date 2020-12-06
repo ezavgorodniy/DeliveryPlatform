@@ -14,21 +14,20 @@ namespace Shared.Tests.Middlewares
         private readonly JwtMiddleware _middleware;
         private bool _nextWasCalled;
 
-        private Mock<IExecutionContext> _mockExecutionContext;
-        private Mock<IExecutionContextHelper> _mockExecutionContextHelper;
-        private Mock<HttpContext> _mockHttpContext;
-        private Mock<HttpRequest> _mockHttpRequest;
-        private HeaderDictionary _headers;
+        private readonly Mock<IExecutionContext> _mockExecutionContext;
+        private readonly Mock<IExecutionContextHelper> _mockExecutionContextHelper;
+        private readonly Mock<HttpContext> _mockHttpContext;
+        private readonly HeaderDictionary _headers;
 
         public JwtMiddlewareTests()
         {
             _headers = new HeaderDictionary();
             
-            _mockHttpRequest = new Mock<HttpRequest>();
-            _mockHttpRequest.SetupGet(request => request.Headers).Returns(_headers);
+            var mockHttpRequest = new Mock<HttpRequest>();
+            mockHttpRequest.SetupGet(request => request.Headers).Returns(_headers);
 
             _mockHttpContext = new Mock<HttpContext>();
-            _mockHttpContext.SetupGet(context => context.Request).Returns(_mockHttpRequest.Object);
+            _mockHttpContext.SetupGet(context => context.Request).Returns(mockHttpRequest.Object);
 
             _mockExecutionContext = new Mock<IExecutionContext>();
             _mockExecutionContextHelper = new Mock<IExecutionContextHelper>();
