@@ -11,4 +11,11 @@ Identity will be standard Id v4 ASP.NET core project.
 
 Delivery.Api will be standard ASP.NET Core WebAPI project.
 
-Authentication will be based on JWT token.
+Authentication will be based on JWT token. Due to lack of time current implementation is using the same certificate key to generate and read token (see key Secret in AppSettings.json in both web projects). It's definitely not the most secure way to handle secrets but unless we're taking extra care on having secret encrypted in Identity and Delivery.Api we're more or less secure. 
+
+Api projects are following onion architecture to separate different concerns and make easier to replace different aspects from each other.
+
+- Web Layer (Delivery.csproj, Identity.Server.csproj) - is taking care only about getting request;
+- Service interface layer (Delivery.Core.csproj, Identity.Core.csproj) - is taking care about business logic;
+- DataLayer (Delivery.DataLayer.csproj, Identity.Core.csproj) - is taking care about how data should be persisted.
+- Entity (namespace inside DataLayer.DataModels project) - have information about entities.
