@@ -26,6 +26,6 @@ After this you can use api with Postman, curl or any convenient for you way.
 
 By default Visual Studio is using Docker to launch the project:
 
-![VS Docker Profile](images/VSDockerProfile.png)
+![VS Docker Profile](images/VsDockerProfile.png)
 
 Default DockerDefaultTargetOS is Linux, so highly likely you're receiving cross-platform version.
