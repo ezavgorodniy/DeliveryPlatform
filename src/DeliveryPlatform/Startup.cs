@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using DeliveryPlatform.DataLayer.Models;
 using DeliveryPlatform.HostedService;
 using DeliveryPlatform.Options;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,8 @@ namespace DeliveryPlatform
 
             services.Configure<AuthSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<DeliveryExpirationSettings>(Configuration.GetSection("AppSettings"));
-
+            services.Configure<ConnectionStringSettings>(Configuration.GetSection("AppSettings"));
+            
             // This will allow to inject execution context via DI
             services.AddScoped<ExecutionContext>();
             services.AddScoped<IExecutionContext>(x => x.GetRequiredService<ExecutionContext>());
