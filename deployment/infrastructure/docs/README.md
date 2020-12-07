@@ -12,4 +12,4 @@ Second command will run for a while (10+ minutes) and create cluster for you, co
 
 In TF output you'll see connection 
 
-![TF output](images/Architecture.png)
+![TF output](images/TFOutput.png)
