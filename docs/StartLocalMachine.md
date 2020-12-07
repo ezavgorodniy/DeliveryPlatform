@@ -14,7 +14,7 @@ Please ensure that your appsettings.json have values for:
 
 DeliveryPlatofrm:
 
-- DbConnectionString (see [Infrastructure setup](../deployment/infrastructure/docs/README.md) on how to obtain it
+- DbConnectionString (see [Infrastructure setup](../deployment/infrastructure/docs/README.md) on how to obtain it)
 - Secret
 
 Identity.Server
