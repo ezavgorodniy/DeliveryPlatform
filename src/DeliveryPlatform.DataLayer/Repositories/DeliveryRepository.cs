@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DeliveryPlatform.DataLayer.DataModels;
 using DeliveryPlatform.DataLayer.Interfaces;
+using DeliveryPlatform.DataLayer.Mongo.Interfaces;
+using MongoDB.Driver;
 
 namespace DeliveryPlatform.DataLayer.Repositories
 {
     internal class DeliveryRepository : IDeliveryRepository
     {
-        private readonly List<Delivery> _deliveries = new List<Delivery>();
+        private const string CollectionName = "deliveries";
+        private readonly IMongoDatabaseFactory _mongoDbFactory;
 
-        public Task<Delivery> Create(Delivery entity)
+
+        public DeliveryRepository(IMongoDatabaseFactory mongoDbFactory)
+        {
+            _mongoDbFactory = mongoDbFactory;
+        }
+
+        public async Task<Delivery> Create(Delivery entity)
         {
             if (entity == null)
             {
@@ -21,58 +29,63 @@ namespace DeliveryPlatform.DataLayer.Repositories
             entity.Id = Guid.NewGuid().ToString();
             entity.State = DeliveryState.Created;
 
-            _deliveries.Add(entity);
-            return Task.FromResult(entity);
+            var collection = GetCollection();
+            await collection.InsertOneAsync(entity);
+
+            return await Get(entity.Id);
         }
 
-        public Task<IEnumerable<Delivery>> GetAll()
+        public async Task<IEnumerable<Delivery>> GetAll()
         {
-            return Task.FromResult(_deliveries as IEnumerable<Delivery>);
+            var collection = GetCollection();
+            var all = await collection.Find(x => true).ToListAsync();
+            return all;
         }
 
-        public Task<Delivery> Get(string id)
+        public async Task<Delivery> Get(string id)
         {
-            var foundDelivery = _deliveries.FirstOrDefault(delivery => delivery.Id == id);
-            return Task.FromResult(foundDelivery);
+            var collection = GetCollection();
+            var delivery = await collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            return delivery;
         }
 
-        public Task<bool> Delete(string id)
+        public async Task<bool> Delete(string id)
         {
-            var foundDelivery = _deliveries.FirstOrDefault(delivery => delivery.Id == id);
-            if (foundDelivery != null)
-            {
-                _deliveries.Remove(foundDelivery);
-            }
-            return Task.FromResult(foundDelivery != null);
+            var collection = GetCollection();
+            var result = await collection.DeleteOneAsync(Builders<Delivery>.Filter.Eq(x => x.Id, id));
+            return result.DeletedCount != 0;
         }
 
-        public Task<Delivery> Update(Delivery entity)
+        public async Task<Delivery> Update(Delivery entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var foundDelivery = _deliveries.FirstOrDefault(delivery => delivery.Id == entity.Id);
-            if (foundDelivery != null)
-            {
-                // at this moment only state can be changed
-                foundDelivery.State = entity.State;
-            }
-            return Task.FromResult(foundDelivery);
+            var collection = GetCollection();
+            await collection.UpdateOneAsync(Builders<Delivery>.Filter.Eq(x => x.Id, entity.Id),
+                Builders<Delivery>.Update.Set(x => x.State, entity.State));
+
+            return await Get(entity.Id);
         }
 
-        public Task MarkExpiredDeliveries()
+        public async Task MarkExpiredDeliveries()
         {
-            foreach (var delivery in _deliveries.Where(del=> del.State == DeliveryState.Approved || del.State == DeliveryState.Created))
-            {
-                if (DateTime.Now > delivery.AccessWindow.EndTime)
-                {
-                    delivery.State = DeliveryState.Expired;
-                }
-            }
+            var collection = GetCollection();
+            await collection.UpdateManyAsync(
+                Builders<Delivery>.Filter.And(
+                    Builders<Delivery>.Filter.Or(
+                        Builders<Delivery>.Filter.Eq(x => x.State, DeliveryState.Created),
+                        Builders<Delivery>.Filter.Eq(x => x.State, DeliveryState.Approved)),
+                    Builders<Delivery>.Filter.Lt(x => x.AccessWindow.EndTime, DateTime.Now)),
+                Builders<Delivery>.Update.Set(x => x.State, DeliveryState.Expired));
+        }
 
-            return Task.CompletedTask;
+        private IMongoCollection<Delivery> GetCollection()
+        {
+            var mongoDb = _mongoDbFactory.Connect();
+            return mongoDb.GetCollection<Delivery>(CollectionName);
         }
     }
 }

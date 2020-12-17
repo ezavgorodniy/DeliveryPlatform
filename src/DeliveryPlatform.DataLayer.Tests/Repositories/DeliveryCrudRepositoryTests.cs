@@ -1,18 +1,39 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DeliveryPlatform.DataLayer.DataModels;
+using DeliveryPlatform.DataLayer.Mongo.Interfaces;
 using DeliveryPlatform.DataLayer.Repositories;
+using Mongo2Go;
+using MongoDB.Driver;
+using Moq;
 using Xunit;
 
 namespace DeliveryPlatform.DataLayer.Tests.Repositories
 {
-    public class  DeliveryCrudRepositoryTests
+    public class  DeliveryCrudRepositoryTests : IDisposable
     {
+        private const string TestDatabase = "testDatabase";
+        private readonly MongoDbRunner _runner;
         private readonly DeliveryRepository _repo;
 
         public DeliveryCrudRepositoryTests()
         {
-            _repo = new DeliveryRepository();
+            _runner = MongoDbRunner.Start();
+            var client = new MongoClient(_runner.ConnectionString);
+
+            foreach (var database in client.ListDatabaseNames().ToList())
+            {
+                if (database == TestDatabase)
+                {
+                    client.DropDatabase(TestDatabase);
+                }
+            }
+            var mongoDatabase = client.GetDatabase(TestDatabase);
+
+
+            var mockFactory = new Mock<IMongoDatabaseFactory>();
+            mockFactory.Setup(factory => factory.Connect()).Returns(mongoDatabase);
+            _repo = new DeliveryRepository(mockFactory.Object);
         }
 
         [Fact]
@@ -165,6 +186,12 @@ namespace DeliveryPlatform.DataLayer.Tests.Repositories
             var delivery = await _repo.Get(createdDelivery.Id);
 
             Assert.Equal(newState, delivery.State);
+        }
+        
+
+        public void Dispose()
+        {
+            _runner.Dispose();
         }
     }
 }

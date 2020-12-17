@@ -21,3 +21,5 @@ Api projects are following onion architecture to separate different concerns and
 - Service interface layer (Delivery.Core.csproj, Identity.Core.csproj) - is taking care about business logic;
 - DataLayer (Delivery.DataLayer.csproj, Identity.Core.csproj) - is taking care about how data should be persisted.
 - Entity (namespace inside DataLayer.DataModels project) - have information about entities.
+
+Data is stored for now at Mongo, it may be subject to discuss and change.
